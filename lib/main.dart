@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
     AppRouter appRouter = AppRouter();
     // return MaterialApp(
     //   debugShowCheckedModeBanner: false,
-    //   title: 'Dashboard',
+    //   title: 'Quick Access',
     //   theme: ThemeData(
     //     primarySwatch: Colors.blue,
     //   ),
