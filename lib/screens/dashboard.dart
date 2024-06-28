@@ -497,21 +497,21 @@ class _DashboardScreenState extends State<DashboardScreen> {
             height: MediaQuery.of(context).size.height,
           ),
           Positioned(
-            top: 60,
+            top: 100,
             left: 60,
             child: Image.asset(
               'assets/images/Vector_Woman.png',
               fit: BoxFit.cover,
-              width: 500,
+              width: 600,
             ),
           ),
           Positioned(
-            top: 320,
+            top: 450,
             left: 150,
             child: Image.asset(
               'assets/images/Vector_Man.png',
               // fit: BoxFit.cover,
-              width: 300,
+              width: 400,
               height: 300,
             ),
           ),
