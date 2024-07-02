@@ -48,7 +48,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         text: 'Please enter the email or ID',
       );
     }
-    Map sendData = {
+    final sendData = {
       'roomId': _idController.text,
       'user': {
         "UserName": prefs.getString('USER_NAME'),
@@ -92,6 +92,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     });
 
     _socket.on('access-request', (data) {
+      print('Access request: $data');
       QuickAlert.show(
         context: context,
         type: QuickAlertType.confirm,
