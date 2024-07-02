@@ -51,7 +51,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     }
     final sendData = {
       'roomId': _idController.text,
-      'socket_id': _socket.id,
+      'socket_id': prefs.getString('socket_id'),
       'user': {
         "UserName": prefs.getString('USER_NAME'),
         "Name":
@@ -70,6 +70,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       "unique_id": prefs.getString('UNIQUE_ID'),
       "socket_id": socketId,
     });
+    await prefs.setString('socket_id', socketId);
   }
 
   _connectSocket() async {
