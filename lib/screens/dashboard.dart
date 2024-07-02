@@ -117,7 +117,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           Navigator.of(context).pop();
         },
         onCancelBtnTap: () {
-          _socket.emit('reject', jsonEncode(data[0]));
+          _socket.emit('reject', data[0]);
           Navigator.of(context).pop();
         },
       );
@@ -135,7 +135,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
         title: 'Request Rejected!',
         width: 400,
         text: 'Request rejected by user',
-        autoCloseDuration: Duration(seconds: 3),
       );
     });
 
