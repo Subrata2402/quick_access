@@ -7,6 +7,7 @@ class PostApiConnection {
   String getAddressBook = '$baseUrl/api/user/get_address_book';
   String insertAddressBook = '$baseUrl/api/user/insert_address_book';
   String deleteAddressBook = '$baseUrl/api/user/delete_address_book';
+  String updateSocketUser = '$baseUrl/api/user/update_socket_user';
 }
 
 class GetApiConnection {}

@@ -124,4 +124,24 @@ class PostService {
       return e;
     }
   }
+
+  Future updateSocketUser(Map data) async {
+    try {
+      final response = await http.post(
+        Uri.parse(_apiConnection.updateSocketUser),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(data),
+      );
+
+      if (response.statusCode == 200) {
+        return jsonDecode(response.body);
+      } else {
+        return jsonDecode(response.body);
+      }
+    } catch (e) {
+      return e;
+    }
+  }
 }

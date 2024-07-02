@@ -1,4 +1,4 @@
-// import 'dart:convert';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:quick_access/routes/app_router.gr.dart';
@@ -9,6 +9,7 @@ import '../services/post_services.dart';
 @RoutePage()
 class LoginScreen extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
+
   final TextEditingController _passwordController = TextEditingController();
 
   Future<void> login(BuildContext context) async {
@@ -18,11 +19,21 @@ class LoginScreen extends StatelessWidget {
     });
     // print(response[0]);
     if (response[0]['status'] == 'SUCCESS') {
+      
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setBool('IS_LOGGED_IN', true);
-      await prefs.setString('USER_NAME', response[0]['user_details'][0]['USER_NAME']);
-      await prefs.setString('PASSWORD', response[0]['user_details'][0]['PASSWORD']);
-      await prefs.setString('ID', response[0]['user_details'][0]['ID'].toString());
+      await prefs.setString(
+          'USER_NAME', response[0]['user_details'][0]['USER_NAME']);
+      await prefs.setString(
+          'FIRST_NAME', response[0]['user_details'][0]['FIRST_NAME']);
+      await prefs.setString(
+          'LAST_NAME', response[0]['user_details'][0]['LAST_NAME']);
+      await prefs.setString(
+          'PASSWORD', response[0]['user_details'][0]['PASSWORD']);
+      await prefs.setString(
+          'ID', response[0]['user_details'][0]['ID'].toString());
+      await prefs.setString(
+          'UNIQUE_ID', response[0]['user_details'][0]['UNIQUE_ID'].toString());
 
       // ignore: use_build_context_synchronously
       AutoRouter.of(context).push(const DashboardRoute());

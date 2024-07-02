@@ -1,9 +1,12 @@
+import 'dart:convert';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:quick_access/routes/app_router.gr.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:quickalert/quickalert.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:socket_io_client/socket_io_client.dart' as IO;
 import '../services/post_services.dart';
 
 @RoutePage()
@@ -13,22 +16,115 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
-  bool connectionStatus = false;
-  final Connectivity _connectivity = Connectivity();
-
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _idController = TextEditingController();
   Map overlayEntries = {};
   String? buttonName;
   // bool isAPModalOpen = false;
 
+  // Store the address book data
   List<dynamic> addressBook = [];
+
+  // Check the internet connection status
+  bool connectionStatus = false;
+  final Connectivity _connectivity = Connectivity();
+
+  // Socket connection
+  // http://122.163.121.176:3008
+  final IO.Socket _socket = IO.io('http://122.163.121.176:3008', <String, dynamic>{
+    'transports': ['websocket'],
+    'autoConnect': false,
+  });
+
+  _sendRequest() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (_idController.text.trim().isEmpty) {
+      return QuickAlert.show(
+        // ignore: use_build_context_synchronously
+        context: context,
+        type: QuickAlertType.error,
+        title: 'Error!',
+        width: 400,
+        text: 'Please enter the email or ID',
+      );
+    }
+    Map sendData = {
+      'roomId': _idController.text,
+      'user': {
+        "UserName": prefs.getString('USER_NAME'),
+        "Name":
+            "${prefs.getString('FIRST_NAME')} ${prefs.getString('LAST_NAME')}",
+        "UniqueId": prefs.getString('UNIQUE_ID'),
+      },
+    };
+    _socket.emitWithAck('join-message', jsonEncode(sendData), ack: (data) {
+      print('Join message $data');
+    });
+  }
+
+  _updateSocketUser(socketId) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await PostService().updateSocketUser({
+      "unique_id": prefs.getString('UNIQUE_ID'),
+      "socket_id": socketId,
+    });
+  }
+
+  _connectSocket() async {
+    _socket.connect();
+    _socket.onConnect((_) {
+      print('connect: ${_socket.id}');
+      // _socket.emitWithAck('get_socket', 'i send', ack: (data) {
+      //   print('Received socket ID from server: $data');
+      // });
+    });
+
+    _socket.on('user-offline', (data) {
+      // print(data);
+      QuickAlert.show(
+        context: context,
+        type: QuickAlertType.error,
+        title: 'User Offline!',
+        width: 400,
+        text: 'User is offline',
+        autoCloseDuration: Duration(seconds: 3),
+      );
+    });
+
+    _socket.on('access-request', (data) {
+      print('Access request: $data');
+    });
+
+    _socket.on('you-reject', (data) {
+      // print(data);
+      QuickAlert.show(
+        context: context,
+        type: QuickAlertType.error,
+        title: 'Request Rejected!',
+        width: 400,
+        text: 'Request rejected by user',
+        autoCloseDuration: Duration(seconds: 3),
+      );
+    });
+
+    
+  }
 
   @override
   void initState() {
     super.initState();
     checkConnection();
     fetchAddressBook();
+    _connectSocket();
+    Future.delayed(Duration(seconds: 1), () {
+      _updateSocketUser(_socket.id);
+    });
+  }
+
+  @override
+  void dispose() {
+    _socket.dispose();
+    super.dispose();
   }
 
   Future fetchAddressBook() async {
@@ -36,7 +132,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
     final response = await PostService().getAddressBook({
       "user_id": prefs.getString('ID'),
     });
-    addressBook = response.where((element) => element['Isdelete'] == 0).toList();
+    addressBook =
+        response.where((element) => element['Isdelete'] == 0).toList();
   }
 
   Future checkConnection() async {
@@ -165,6 +262,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       "USER_NAME": prefs.getString('USER_NAME'),
       "PASSWORD": prefs.getString('PASSWORD'),
     });
+    // print(response);
     if (response['RESPONSE'] == 'SUCCESS') {
       await prefs.clear();
       // ignore: use_build_context_synchronously
@@ -178,7 +276,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         type: QuickAlertType.error,
         title: 'Something went wrong!',
         width: 400,
-        text: response[0]['status'],
+        text: response['RESPONSE'],
       );
     }
   }
@@ -672,7 +770,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           borderRadius: BorderRadius.circular(5),
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        _sendRequest();
+                      },
                       child: Text(
                         'Connect',
                         style: TextStyle(color: Colors.black),
