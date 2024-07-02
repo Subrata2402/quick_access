@@ -11,6 +11,7 @@ import '../services/post_services.dart';
 
 @RoutePage()
 class DashboardScreen extends StatefulWidget {
+  
   @override
   _DashboardScreenState createState() => _DashboardScreenState();
 }
@@ -71,6 +72,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   _connectSocket() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     _socket.connect();
     _socket.onConnect((_) {
       print('connect: ${_socket.id}');
@@ -93,6 +95,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
     _socket.on('access-request', (data) {
       print('Access request: ${data[0]}');
+      var connectUserData = data[0];
+      connectUserData['screendata'] = {
+        'width': 1200,
+        'height': 800,
+        'userMac': '',
+        'user_id': prefs.getString('ID'),
+        'username': prefs.getString('USER_NAME'),
+      };
+      connectUserData['socket_id'] = _socket.id;
       QuickAlert.show(
         context: context,
         type: QuickAlertType.confirm,
@@ -101,7 +112,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         text: 'User wants to access your system',
         confirmBtnColor: Colors.green,
         onConfirmBtnTap: () {
-          _socket.emit('accept', jsonEncode(data[0]));
+          _socket.emit('accept', jsonEncode(connectUserData));
           Navigator.of(context).pop();
         },
         onCancelBtnTap: () {
