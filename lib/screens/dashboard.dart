@@ -92,7 +92,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     });
 
     _socket.on('access-request', (data) {
-      // print('Access request: ${data[0]}');
+      print('Access request: ${data[0]}');
       QuickAlert.show(
         context: context,
         type: QuickAlertType.confirm,
@@ -116,7 +116,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     });
 
     _socket.on('you-reject', (data) {
-      // print(data);
+      print('You reject: $data');
       QuickAlert.show(
         context: context,
         type: QuickAlertType.error,
