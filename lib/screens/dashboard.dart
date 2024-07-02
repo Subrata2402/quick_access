@@ -92,7 +92,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     });
 
     _socket.on('access-request', (data) {
-      print('Access request: $data');
+      // print('Access request: ${data[0]}');
       QuickAlert.show(
         context: context,
         type: QuickAlertType.confirm,
@@ -101,11 +101,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
         text: 'User wants to access your system',
         confirmBtnColor: Colors.green,
         onConfirmBtnTap: () {
-          _socket.emit('accept', jsonEncode(data));
+          _socket.emit('accept', jsonEncode(data[0]));
           Navigator.of(context).pop();
         },
         onCancelBtnTap: () {
-          _socket.emit('reject', jsonEncode(data));
+          _socket.emit('reject', jsonEncode(data[0]));
           Navigator.of(context).pop();
         },
       );
