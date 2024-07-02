@@ -100,14 +100,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
         text: 'User wants to access your system',
         confirmBtnColor: Colors.green,
         onConfirmBtnTap: () {
-          _socket.emit('accept', (data) {
-            print('Accept: $data');
-          });
+          _socket.emit('accept', jsonEncode(data));
+          Navigator.of(context).pop();
         },
         onCancelBtnTap: () {
-          _socket.emit('reject', (data) {
-            print('Reject: $data');
-          });
+          _socket.emit('reject', jsonEncode(data));
+          Navigator.of(context).pop();
         },
       );
     });
