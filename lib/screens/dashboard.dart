@@ -51,6 +51,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     }
     final sendData = {
       'roomId': _idController.text,
+      'socket_id': _socket.id,
       'user': {
         "UserName": prefs.getString('USER_NAME'),
         "Name":
@@ -95,7 +96,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
     _socket.on('access-request', (data) {
       print('Access request: ${data[0]}');
-      var connectUserData = data[0];
+      var connectUserData = jsonDecode(data[0]);
       connectUserData['screendata'] = {
         'width': 1200,
         'height': 800,
@@ -103,7 +104,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
         'user_id': prefs.getString('ID'),
         'username': prefs.getString('USER_NAME'),
       };
-      connectUserData['socket_id'] = _socket.id;
       QuickAlert.show(
         context: context,
         type: QuickAlertType.confirm,
