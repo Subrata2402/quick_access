@@ -11,9 +11,11 @@ import '../services/post_services.dart';
 
 @RoutePage()
 class DashboardScreen extends StatefulWidget {
+  const DashboardScreen({super.key});
+
   
   @override
-  _DashboardScreenState createState() => _DashboardScreenState();
+  State<DashboardScreen> createState() => _DashboardScreenState();
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
@@ -91,7 +93,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         title: 'User Offline!',
         width: 400,
         text: 'User is offline',
-        autoCloseDuration: Duration(seconds: 3),
+        autoCloseDuration: const Duration(seconds: 3),
       );
     });
 
@@ -147,7 +149,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     checkConnection();
     fetchAddressBook();
     _connectSocket();
-    Future.delayed(Duration(seconds: 1), () {
+    Future.delayed(const Duration(seconds: 1), () {
       _updateSocketUser(_socket.id);
     });
   }
@@ -217,7 +219,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         title: 'Success!',
         width: 400,
         text: 'Address deleted successfully',
-        autoCloseDuration: Duration(seconds: 3),
+        autoCloseDuration: const Duration(seconds: 3),
       );
     } else {
       QuickAlert.show(
@@ -249,7 +251,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         title: 'Success!',
         width: 400,
         text: 'Address added successfully',
-        autoCloseDuration: Duration(seconds: 3),
+        autoCloseDuration: const Duration(seconds: 3),
       );
     } else {
       QuickAlert.show(
@@ -321,12 +323,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
         child: Container(
           height: 100,
           width: 160,
-          padding: EdgeInsets.all(10.0),
+          padding: const EdgeInsets.all(10.0),
           child: Column(
             children: [
               TextButton(
                   onPressed: () {},
-                  child: Text(
+                  child: const Text(
                     'Manage Account',
                     style: TextStyle(color: Colors.black),
                   )),
@@ -334,7 +336,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 onPressed: () {
                   logout(context);
                 },
-                child: Text('Logout', style: TextStyle(color: Colors.black)),
+                child: const Text('Logout', style: TextStyle(color: Colors.black)),
               ),
             ],
           ),
@@ -352,28 +354,28 @@ class _DashboardScreenState extends State<DashboardScreen> {
         child: Container(
           height: 450,
           width: 300,
-          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 'User Address Book',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
               ),
-              SizedBox(height: 10),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12),
+              const SizedBox(height: 10),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 12),
                 child: Text('In Contacts',
                     style:
                         TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
               ),
-              SizedBox(height: 5),
+              const SizedBox(height: 5),
               Container(
                 height: 150,
                 color: const Color.fromARGB(255, 249, 223, 253),
                 child: ListView.separated(
                   itemCount: addressBook.length,
-                  separatorBuilder: (context, index) => Divider(
+                  separatorBuilder: (context, index) => const Divider(
                     color: Colors.grey,
                     thickness: 1,
                     height: 5,
@@ -386,7 +388,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         children: [
                           Text(
                             addressBook[index]['email_id'],
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 12),
                           ),
                           Text("Id: ${addressBook[index]['cl_UNIQUE_ID']}"),
@@ -396,14 +398,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   },
                 ),
               ),
-              SizedBox(height: 20),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12),
+              const SizedBox(height: 20),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 12),
                 child: Text('Active People',
                     style:
                         TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
               ),
-              SizedBox(height: 5),
+              const SizedBox(height: 5),
               Container(
                 height: 80,
                 color: const Color.fromARGB(255, 249, 223, 253),
@@ -411,7 +413,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   itemCount: addressBook.length,
                   separatorBuilder: (context, index) {
                     if (addressBook[index]['cl_islogin'] == 1) {
-                      return Divider(
+                      return const Divider(
                         color: Colors.grey,
                         thickness: 1,
                         height: 5,
@@ -429,23 +431,23 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           children: [
                             Text(
                               addressBook[index]['email_id'],
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 12),
                             ),
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Icon(
+                                const Icon(
                                   Icons.circle,
                                   color: Colors.green,
                                   size: 10,
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 5,
                                 ),
                                 Text(
                                     "Id: ${addressBook[index]['cl_UNIQUE_ID']}"),
-                                SizedBox(
+                                const SizedBox(
                                   width: 5,
                                 ),
                                 InkWell(
@@ -454,13 +456,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                             ['cl_UNIQUE_ID']
                                         .toString();
                                   },
-                                  child: Icon(
+                                  child: const Icon(
                                     Icons.copy_rounded,
                                     size: 12,
                                     color: Colors.black,
                                   ),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 5,
                                 ),
                                 InkWell(
@@ -478,7 +480,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                       },
                                     );
                                   },
-                                  child: Icon(
+                                  child: const Icon(
                                     Icons.delete_rounded,
                                     size: 12,
                                     color: Colors.black,
@@ -495,14 +497,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   },
                 ),
               ),
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5)),
-                    maximumSize: Size(180, 50),
-                    minimumSize: Size(180, 50)),
+                    maximumSize: const Size(180, 50),
+                    minimumSize: const Size(180, 50)),
                 onPressed: () {
                   showDialog(
                     context: context,
@@ -519,28 +521,28 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               mainAxisSize: MainAxisSize.min,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                Center(
+                                const Center(
                                   child: Text('Add People',
                                       style: TextStyle(
                                           fontSize: 24,
                                           fontWeight: FontWeight.w600)),
                                 ),
-                                SizedBox(height: 15),
-                                Text(
+                                const SizedBox(height: 15),
+                                const Text(
                                   'Email:',
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w600),
                                 ),
-                                SizedBox(height: 5),
+                                const SizedBox(height: 5),
                                 TextField(
                                   controller: _emailController,
                                   decoration: InputDecoration(
                                     isDense: true,
-                                    contentPadding: EdgeInsets.all(10),
+                                    contentPadding: const EdgeInsets.all(10),
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(5),
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                         color:
                                             Color.fromARGB(255, 171, 212, 77),
                                         width: 1,
@@ -548,7 +550,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                     ),
                                     focusedBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(5),
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                         color:
                                             Color.fromARGB(255, 171, 212, 77),
                                         width: 1,
@@ -556,33 +558,33 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                     ),
                                   ),
                                 ),
-                                SizedBox(height: 20),
+                                const SizedBox(height: 20),
                                 ElevatedButton(
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: Colors.green,
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(5),
                                       ),
-                                      minimumSize: Size(double.infinity, 50),
+                                      minimumSize: const Size(double.infinity, 50),
                                     ),
                                     onPressed: () {
                                       insertAddressBook();
                                     },
-                                    child: Text('Save',
+                                    child: const Text('Save',
                                         style: TextStyle(color: Colors.white))),
-                                SizedBox(height: 10),
+                                const SizedBox(height: 10),
                                 ElevatedButton(
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: Colors.red,
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(5),
                                       ),
-                                      minimumSize: Size(double.infinity, 50),
+                                      minimumSize: const Size(double.infinity, 50),
                                     ),
                                     onPressed: () {
                                       Navigator.of(context).pop();
                                     },
-                                    child: Text('Close',
+                                    child: const Text('Close',
                                         style: TextStyle(color: Colors.white))),
                               ],
                             ),
@@ -592,7 +594,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     },
                   );
                 },
-                child: Row(
+                child: const Row(
                   children: [
                     Icon(
                       Icons.add,
@@ -646,7 +648,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ),
           // Interactive widgets should be added last
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
             decoration: BoxDecoration(color: Colors.orange[400], boxShadow: [
               BoxShadow(
                 color: const Color.fromARGB(255, 52, 48, 48).withOpacity(0.5),
@@ -661,59 +663,59 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   'assets/images/aivista_logo.png',
                   scale: 4,
                 ),
-                SizedBox(width: 15),
+                const SizedBox(width: 15),
                 InkWell(
                   onTap: () {},
-                  child: Text(
+                  child: const Text(
                     'File',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                 ),
-                SizedBox(width: 15),
+                const SizedBox(width: 15),
                 InkWell(
                   onTap: () {},
-                  child: Text(
+                  child: const Text(
                     'Edit',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                 ),
-                SizedBox(width: 15),
+                const SizedBox(width: 15),
                 InkWell(
                   onTap: () {},
-                  child: Text(
+                  child: const Text(
                     'View',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                 ),
-                SizedBox(width: 15),
+                const SizedBox(width: 15),
                 InkWell(
                   onTap: () {},
-                  child: Text(
+                  child: const Text(
                     'Window',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                 ),
-                SizedBox(width: 15),
+                const SizedBox(width: 15),
                 InkWell(
                   onTap: () {},
-                  child: Text(
+                  child: const Text(
                     'Help',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 IconButton(
                     onPressed: () {},
                     tooltip: 'Settings',
-                    icon: Icon(Icons.settings)),
-                SizedBox(width: 10),
+                    icon: const Icon(Icons.settings)),
+                const SizedBox(width: 10),
                 IconButton(
                     onPressed: () {
                       showOverlay(context, 'profile');
                     },
                     tooltip: 'Profile',
-                    icon: Icon(Icons.person)),
-                SizedBox(width: 10),
+                    icon: const Icon(Icons.person)),
+                const SizedBox(width: 10),
                 IconButton(
                     onPressed: () {
                       // setState(() {});
@@ -723,13 +725,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       Icons.circle,
                       color: connectionStatus ? Colors.green : Colors.red,
                     )),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
                 IconButton(
                     onPressed: () {
                       showOverlay(context, 'menu');
                     },
                     tooltip: 'Menu',
-                    icon: Icon(Icons.menu_outlined))
+                    icon: const Icon(Icons.menu_outlined))
               ],
             ),
           ),
@@ -737,7 +739,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             top: MediaQuery.of(context).size.height / 2 - 150,
             left: MediaQuery.of(context).size.width / 2 - 50,
             child: Container(
-              padding: EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
               height: 350,
               width: 400,
               decoration: BoxDecoration(
@@ -749,7 +751,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         const Color.fromARGB(255, 52, 48, 48).withOpacity(0.5),
                     // spreadRadius: 1,
                     blurRadius: 5,
-                    offset: Offset(3, 3),
+                    offset: const Offset(3, 3),
                   )
                 ],
               ),
@@ -759,7 +761,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     'Provide Support',
                     style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   TextField(
@@ -768,35 +770,35 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       hintText: 'Email Contact E-mail or ID',
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(5),
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                           color: Color.fromARGB(255, 171, 212, 77),
                           width: 2,
                         ),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(5),
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                           color: Color.fromARGB(255, 171, 212, 77),
                           width: 2,
                         ),
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   // checkbox
                   Checkbox(value: true, onChanged: (bool? value) {}),
-                  Text(
+                  const Text(
                     'Save remote address',
                     style: TextStyle(fontSize: 16),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color.fromARGB(255, 213, 249, 102),
+                        backgroundColor: const Color.fromARGB(255, 213, 249, 102),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5),
                         ),
@@ -804,18 +806,18 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       onPressed: () {
                         _sendRequest();
                       },
-                      child: Text(
+                      child: const Text(
                         'Connect',
                         style: TextStyle(color: Colors.black),
                       )),
-                  SizedBox(height: 10),
-                  Text('You can share your ID & Password'),
+                  const SizedBox(height: 10),
+                  const Text('You can share your ID & Password'),
                   // SizedBox(height: 10),
-                  Text('Your ID: 123 456 789'),
+                  const Text('Your ID: 123 456 789'),
                   // SizedBox(height: 10),
-                  Text('Your Password: 35@rm8#12'),
+                  const Text('Your Password: 35@rm8#12'),
                   // SizedBox(height: 10),
-                  Icon(Icons.book_rounded)
+                  const Icon(Icons.book_rounded)
                 ],
               ),
             ),

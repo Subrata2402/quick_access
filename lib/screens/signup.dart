@@ -32,7 +32,7 @@ class SignupScreen extends StatelessWidget {
         title: 'Success!',
         width: 400,
         text: response[0]['msg'],
-        autoCloseDuration: Duration(seconds: 3),
+        autoCloseDuration: const Duration(seconds: 3),
       );
     } else {
       QuickAlert.show(
@@ -61,7 +61,7 @@ class SignupScreen extends StatelessWidget {
             child: Column(
               children: [
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
                   child: Row(
                     children: [
                       Image.asset(
@@ -69,22 +69,22 @@ class SignupScreen extends StatelessWidget {
                         width: 50,
                         height: 50,
                       ),
-                      Spacer(),
-                      Text('Have an account?'),
+                      const Spacer(),
+                      const Text('Have an account?'),
                       TextButton(
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        child: Text('Login'),
+                        child: const Text('Login'),
                       )
                     ],
                   ),
                 ),
-                SizedBox(height: 50),
+                const SizedBox(height: 50),
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Container(
-                    padding: EdgeInsets.all(20),
+                    padding: const EdgeInsets.all(20),
                     width: MediaQuery.of(context).size.width,
                     // height: MediaQuery.of(context).size.height - 200,
                     child: Row(
@@ -98,7 +98,7 @@ class SignupScreen extends StatelessWidget {
                           height: 500,
                         ),
                         Container(
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                               horizontal: 30, vertical: 10),
                           height: 570,
                           width: 400,
@@ -110,75 +110,75 @@ class SignupScreen extends StatelessWidget {
                                   color: Colors.grey.withOpacity(0.5),
                                   spreadRadius: 5,
                                   blurRadius: 7,
-                                  offset: Offset(0, 3),
+                                  offset: const Offset(0, 3),
                                 )
                               ]),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
+                              const Text(
                                 'Create an Account',
                                 style: TextStyle(
                                     fontSize: 25, fontWeight: FontWeight.bold),
                               ),
-                              Text(
+                              const Text(
                                 'Sign up to get started',
                                 style: TextStyle(color: Colors.grey),
                               ),
-                              SizedBox(height: 30),
-                              Text(
+                              const SizedBox(height: 30),
+                              const Text(
                                 'First Name',
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
-                              SizedBox(height: 10),
+                              const SizedBox(height: 10),
                               inputField('Enter your First Name', false,
                                   _firstNameController),
-                              SizedBox(height: 10),
-                              Text(
+                              const SizedBox(height: 10),
+                              const Text(
                                 'Last Name',
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
-                              SizedBox(height: 10),
+                              const SizedBox(height: 10),
                               inputField('Enter your Last Name', false,
                                   _lastNameController),
-                              SizedBox(height: 10),
-                              Text(
+                              const SizedBox(height: 10),
+                              const Text(
                                 'Email',
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
-                              SizedBox(height: 10),
+                              const SizedBox(height: 10),
                               inputField(
                                   'Enter your Email', false, _emailController),
-                              SizedBox(height: 10),
-                              Text(
+                              const SizedBox(height: 10),
+                              const Text(
                                 'Password',
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
-                              SizedBox(height: 10),
+                              const SizedBox(height: 10),
                               inputField('Enter your Password', true,
                                   _passwordController),
-                              SizedBox(height: 10),
-                              Text(
+                              const SizedBox(height: 10),
+                              const Text(
                                 'System Id',
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
-                              SizedBox(height: 10),
+                              const SizedBox(height: 10),
                               inputField(
                                   'System Id', false, _systemIdController),
-                              SizedBox(height: 30),
+                              const SizedBox(height: 30),
                               ElevatedButton(
                                   style: ElevatedButton.styleFrom(
                                       backgroundColor:
-                                          Color.fromARGB(255, 217, 230, 74),
+                                          const Color.fromARGB(255, 217, 230, 74),
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(5),
                                       ),
-                                      minimumSize: Size(double.infinity, 50)),
+                                      minimumSize: const Size(double.infinity, 50)),
                                   onPressed: () {
                                     register(context);
                                   },
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
+                                  child: const Padding(
+                                    padding: EdgeInsets.symmetric(
                                         horizontal: 30, vertical: 10),
                                     child: Text(
                                       'Submit',
@@ -192,7 +192,7 @@ class SignupScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 50),
+                const SizedBox(height: 50),
               ],
             ),
           ),
@@ -211,16 +211,16 @@ class SignupScreen extends StatelessWidget {
         fillColor: Colors.white,
         hintText: hintText,
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.white),
+          borderSide: const BorderSide(color: Colors.white),
           borderRadius: BorderRadius.circular(5),
         ),
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.white),
+          borderSide: const BorderSide(color: Colors.white),
           borderRadius: BorderRadius.circular(5),
         ),
         hoverColor: Colors.white,
         isDense: true,
-        contentPadding: EdgeInsets.all(10),
+        contentPadding: const EdgeInsets.all(10),
       ),
     );
   }
